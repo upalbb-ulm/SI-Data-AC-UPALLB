@@ -100,7 +100,6 @@
     <!-- Grafik -->
     <div class="row">
         <div class="col-md-12 mb-4">
-            <h2>Info Grafik</h2>
             <div class="card p-3 shadow-sm">
                 <canvas id="chartBulanan"></canvas>
             </div>
@@ -342,25 +341,49 @@ document.getElementById('infoTahunan').innerText = totalT.toFixed(1) + " L";
             updateChart(chartLabels, chartData);
         }
         
-        // Update Chart.js (Grafik Bulanan)
-        function updateChart(labels, data) {
-            let ctx = document.getElementById('chartBulanan').getContext('2d');
-            if(myChart) myChart.destroy();
-            myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels.length ? labels : ['Belum ada data'],
-                    datasets: [{
-                        label: 'Total Air AC (Liter) per Bulan',
-                        data: data.length ? data : [0],
-                        backgroundColor: 'rgba(25, 135, 84, 0.6)',
-                        borderColor: 'rgba(25, 135, 84, 1)',
-                        borderWidth: 1
-                    }]
+    // Update Chart.js (Grafik Bulanan)
+function updateChart(labels, data) {
+    let ctx = document.getElementById('chartBulanan').getContext('2d');
+    if(myChart) myChart.destroy();
+    
+    myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels.length ? labels : ['Belum ada data'],
+            datasets: [{
+                label: 'Liter',
+                data: data.length ? data : [0],
+                backgroundColor: 'rgba(25, 135, 84, 0.6)',
+                borderColor: 'rgba(25, 135, 84, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: { 
+            responsive: true, 
+            plugins: {
+                // INI BAGIAN YANG PENTING UNTUK MENAMPILKAN JUDUL
+                title: {
+                    display: true,
+                    text: 'Grafik Total Air Perbulan',
+                    font: {
+                        size: 20,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 30
+                    }
                 },
-                options: { responsive: true, scales: { y: { beginAtZero: true } } }
-            });
+                legend: {
+                    display: false // Menghilangkan kotak keterangan kecil di atas
+                }
+            },
+            scales: { 
+                y: { beginAtZero: true } 
+            } 
         }
+    });
+}
 
         // Inisialisasi awal
         renderTables();
