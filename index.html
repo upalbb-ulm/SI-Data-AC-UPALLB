@@ -276,7 +276,7 @@
                 let bulan = getMonthName(dateObj.getMonth());
                 let minggu = getWeekOfMonth(d.tanggal);
                 
-                let keyMinggu = `${tahun} ${bulan} - M${minggu}`;
+                let keyMinggu = `${bulan} ${tahun} - M${minggu}`;
                 let keyBulan = `${bulan} ${tahun}`;
                 let keyTahun = `${tahun}`;
 
@@ -387,5 +387,6 @@ function updateChart(labels, data) {
 
         // Inisialisasi awal
         renderTables();
+    </script>
 </body>
 </html>
