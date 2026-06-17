@@ -387,6 +387,26 @@ function updateChart(labels, data) {
 
         // Inisialisasi awal
         renderTables();
+ // --- Perbaikan Logika Infografis ---
+// Ambil tanggal terakhir yang ada di database untuk data "Terakhir"
+let dataTerurut = [...dataAC].sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+let tglTerakhir = dataTerurut.length > 0 ? dataTerurut[0].tanggal : null;
+
+// Hitung Total Harian (berdasarkan data di tanggal terakhir yang diinput)
+let totalH = dataTerurut.filter(d => d.tanggal == tglTerakhir).reduce((sum, d) => sum + (d.r1+d.r2+d.r3+d.r4+d.r5), 0);
+
+// Hitung Total Minggu Ini (Mengambil data dari minggu terakhir yang ada di record)
+// Kita ambil minggu dari data terbaru
+let mingguTerakhirKey = Object.keys(rekapMingguan).sort().reverse()[0];
+let totalM = mingguTerakhirKey ? rekapMingguan[mingguTerakhirKey].total : 0;
+
+// Update tampilan kartu
+document.getElementById('infoHarian').innerText = totalH.toFixed(1) + " L";
+document.getElementById('infoMingguan').innerText = totalM.toFixed(1) + " L";
+document.getElementById('infoBulanan').innerText = Object.values(rekapBulanan).reduce((sum, d) => sum + d.total, 0) > 0 ? 
+                                                   rekapBulanan[Object.keys(rekapBulanan).sort().reverse()[0]].total.toFixed(1) + " L" : "0.0 L";
+document.getElementById('infoTahunan').innerText = Object.values(rekapTahunan).reduce((sum, d) => sum + d.total, 0) > 0 ? 
+                                                   rekapTahunan[Object.keys(rekapTahunan).sort().reverse()[0]].total.toFixed(1) + " L" : "0.0 L";
     </script>
 </body>
 </html>
