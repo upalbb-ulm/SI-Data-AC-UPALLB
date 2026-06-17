@@ -276,7 +276,7 @@
                 let bulan = getMonthName(dateObj.getMonth());
                 let minggu = getWeekOfMonth(d.tanggal);
                 
-                let keyMinggu = `${tahun} - ${bulan} - M${minggu}`;
+                let keyMinggu = `${tahun} ${bulan} - M${minggu}`;
                 let keyBulan = `${bulan} ${tahun}`;
                 let keyTahun = `${tahun}`;
 
@@ -295,28 +295,6 @@
                 rekapTahunan[keyTahun].r1 += d.r1; rekapTahunan[keyTahun].r2 += d.r2; rekapTahunan[keyTahun].r3 += d.r3;
                 rekapTahunan[keyTahun].r4 += d.r4; rekapTahunan[keyTahun].r5 += d.r5; rekapTahunan[keyTahun].total += totalHarian;
             });
-
-            // --- PERBAIKAN LOGIKA INFOGRAFIS (UPDATE KARTU) ---
-    let totalH = dataAC.length > 0 ? (dataAC[0].r1 + dataAC[0].r2 + dataAC[0].r3 + dataAC[0].r4 + dataAC[0].r5) : 0;
-    
-    let keysMingguan = Object.keys(rekapMingguan).sort().reverse();
-    let totalM = keysMingguan.length > 0 ? rekapMingguan[keysMingguan[0]].total : 0;
-    
-    let keysBulanan = Object.keys(rekapBulanan).sort().reverse();
-    let totalB = keysBulanan.length > 0 ? rekapBulanan[keysBulanan[0]].total : 0;
-    
-    let keysTahunan = Object.keys(rekapTahunan).sort().reverse();
-    let totalT = keysTahunan.length > 0 ? rekapTahunan[keysTahunan[0]].total : 0;
-
-    document.getElementById('infoHarian').innerText = totalH.toFixed(1) + " L";
-    document.getElementById('infoMingguan').innerText = totalM.toFixed(1) + " L";
-    document.getElementById('infoBulanan').innerText = totalB.toFixed(1) + " L";
-    document.getElementById('infoTahunan').innerText = totalT.toFixed(1) + " L";
-
-    // --- Render Tabel Lainnya ---
-    // (Isi tabel mingguan/bulanan/tahunan tetap seperti sebelumnya...)
-    // Silakan simpan kode ini, dan dashboard akan langsung otomatis membaca data terbaru.
-    updateChart(keysBulanan.reverse(), keysBulanan.map(k => rekapBulanan[k].total));
 
             // Render Mingguan
             let tbodyMingguan = document.querySelector('#tableMingguan tbody');
