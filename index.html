@@ -324,9 +324,6 @@
                 let d = rekapTahunan[key];
                 tbodyTahunan.innerHTML += `<tr><td>${d.t}</td><td>${d.r1.toFixed(1)}</td><td>${d.r2.toFixed(1)}</td><td>${d.r3.toFixed(1)}</td><td>${d.r4.toFixed(1)}</td><td>${d.r5.toFixed(1)}</td><td class="fw-bold">${d.total.toFixed(1)}</td></tr>`;
             }
-
-            updateChart(chartLabels, chartData);
-        }
 // Update Infografis (Menampilkan data hari/minggu/bulan/tahun terbaru)
 let hariIni = new Date().toISOString().split('T')[0];
 let bulanIni = getMonthName(new Date().getMonth()) + " " + new Date().getFullYear();
@@ -342,6 +339,8 @@ document.getElementById('infoHarian').innerText = totalH.toFixed(1) + " L";
 document.getElementById('infoMingguan').innerText = totalM.toFixed(1) + " L";
 document.getElementById('infoBulanan').innerText = totalB.toFixed(1) + " L";
 document.getElementById('infoTahunan').innerText = totalT.toFixed(1) + " L";
+            updateChart(chartLabels, chartData);
+        }
         
         // Update Chart.js (Grafik Bulanan)
         function updateChart(labels, data) {
